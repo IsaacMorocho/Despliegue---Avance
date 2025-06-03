@@ -1,0 +1,9 @@
+# Ignorar node_modules globales
+**/node_modules/
+
+# Ignorar archivos de entorno
+**/.env
+
+# Archivos de producción
+dist/
+build/

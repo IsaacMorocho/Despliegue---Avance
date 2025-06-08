@@ -1,8 +1,11 @@
 import SuperAdmin from '../models/SuperAdmin.js'
 import mongoose from 'mongoose'
+import Estudiante from '../models/Estudiantes.js'
+import RedComunitaria from '../models/RedComunitaria.js'
 import { sendMailToRecoveryPassword } from "../config/nodemailer.js"
-import { crearTokenJWT } from "../middlewares/JWT.js"
+import { crearTokenJWT } from "../middlewares/JWTEstudiante.js"
 
+//Controladores para la gestión de la cuenta
 const login = async (req, res) => {
   const { email, password } = req.body
   if (!email || !password) {
@@ -128,7 +131,6 @@ const actualizarPassword = async (req,res)=>{
     res.status(200).json({msg:"Password actualizado correctamente"})
 }
 
-
 const perfil = (req, res)=>{
     delete req.SuperAdminBDD.token
     delete req.SuperAdminBDD.confirmEmail
@@ -138,6 +140,155 @@ const perfil = (req, res)=>{
     res.status(200).json(req.SuperAdminBDD)
 }
 
+// Controladores para le gestión de estudiantes
+const crearEstudiante = async (req, res) => {
+  try {
+    const { nombre, apellido, celular, email, password, rol, redComunitaria } = req.body
+
+    const existe = await Estudiante.findOne({ email })
+    if (existe) {
+      return res.status(400).json({ msg: 'El email ya está registrado' })
+    }
+
+    const nuevoEstudiante = new Estudiante({
+      nombre,
+      apellido,
+      celular,
+      email,
+      rol,
+      redComunitaria
+    })
+
+    nuevoEstudiante.password = await nuevoEstudiante.encrypPassword(password)
+    nuevoEstudiante.crearToken()
+
+    await nuevoEstudiante.save()
+
+    res.status(201).json({
+      mensaje: 'Estudiante creado exitosamente',
+      estudiante: {
+        id: nuevoEstudiante._id,
+        nombre: nuevoEstudiante.nombre,
+        apellido: nuevoEstudiante.apellido,
+        email: nuevoEstudiante.email,
+        rol: nuevoEstudiante.rol,
+        redComunitaria: nuevoEstudiante.redComunitaria
+      }
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const obtenerEstudiantes = async (req, res) => {
+  const estudiantes = await Estudiante.find()
+  res.json(estudiantes);
+}
+
+const obtenerEstudiantePorId = async (req, res) => {
+  const estudiante = await Estudiante.findById(req.params.id)
+  if (!estudiante) {
+    return res.status(404).json({ msg: 'Estudiante no encontrado' })
+  }
+  res.json(estudiante)
+}
+
+const actualizarEstudiante = async (req, res) => {
+  try {
+    const estudiante = await Estudiante.findById(req.params.id)
+    if (!estudiante) {
+      return res.status(404).json({ msg: 'Estudiante no encontrado' })
+    }
+
+    const camposActualizados = req.body
+
+    if (camposActualizados.password) {
+      camposActualizados.password = await estudiante.encrypPassword(camposActualizados.password)
+    }
+
+    const estudianteActualizado = await Estudiante.findByIdAndUpdate(
+      req.params.id,
+      camposActualizados,
+      { new: true }
+    );
+
+    res.json(estudianteActualizado)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const eliminarEstudiante = async (req, res) => {
+  await Estudiante.findByIdAndDelete(req.params.id)
+  res.json({ msg: 'Estudiante eliminado correctamente' })
+}
+
+//Controladores para la gestión de redes comunitarias
+const crearRed = async (req, res) => {
+  try {
+    const { nombre, descripcion } = req.body;
+
+    const existente = await RedComunitaria.findOne({ nombre });
+    if (existente) {
+      return res.status(400).json({ mensaje: 'Ya existe una red con ese nombre' })
+    }
+
+    const estudiantes = await Estudiante.find({ redComunitaria: nombre })
+
+    const red = new RedComunitaria({
+      nombre,
+      descripcion,
+      miembros: estudiantes.map(e => e._id),
+      cantidadMiembros: estudiantes.length
+    })
+
+    await red.save();
+
+    res.status(201).json({ mensaje: 'Red comunitaria creada correctamente', red })
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const obtenerRedes = async (req, res) => {
+  const redes = await RedComunitaria.find().populate('miembros', 'nombre apellido email')
+  res.json(redes);
+}
+
+const obtenerRedPorId = async (req, res) => {
+  const red = await RedComunitaria.findById(req.params.id).populate('miembros', 'nombre apellido email')
+  if (!red) return res.status(404).json({ mensaje: 'Red no encontrada' })
+  res.json(red);
+}
+
+const actualizarRed = async (req, res) => {
+  try {
+    const { nombre, descripcion } = req.body;
+
+    const estudiantes = await Estudiante.find({ redComunitaria: nombre })
+
+    const redActualizada = await RedComunitaria.findByIdAndUpdate(
+      req.params.id,
+      {
+        nombre,
+        descripcion,
+        miembros: estudiantes.map(e => e._id),
+        cantidadMiembros: estudiantes.length
+      },
+      { new: true }
+    )
+
+    res.json(redActualizada);
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const eliminarRed = async (req, res) => {
+  await RedComunitaria.findByIdAndDelete(req.params.id)
+  res.json({ mensaje: 'Red eliminada correctamente' })
+}
+
 export {
   login,
   recuperarPassword,
@@ -145,5 +296,15 @@ export {
   crearNuevoPassword,
   perfil,
   actualizarPerfil,
-  actualizarPassword
+  actualizarPassword,
+  crearEstudiante,
+  obtenerEstudiantes,
+  obtenerEstudiantePorId,
+  actualizarEstudiante,
+  eliminarEstudiante,
+  crearRed,
+  obtenerRedes,
+  obtenerRedPorId,
+  actualizarRed,
+  eliminarRed
 }

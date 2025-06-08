@@ -23,7 +23,7 @@ const crearSuperAdmin = async () => {
       nombre: 'Super',
       apellido: 'Admin',
       celular: '0987256435',
-      email: 'eqn03518@toaik.com',
+      email: 'hqf22452@toaik.com',
       password: await new SuperAdmin().encrypPassword('superAdminPoliRed'),
       confirmEmail: true,
       rol: 'SuperAdmin'

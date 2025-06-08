@@ -28,17 +28,20 @@ const Login = () => {
         return () => window.removeEventListener("message", handleMessage);
     }, [login, navigate]);
 
-    const loginUser = async (data) => {
-        const url = `${import.meta.env.VITE_BACKEND_URL}/login`;
-        const response = await fetchDataBackend(url, data, 'POST');
+const loginUser = async (data) => {
+    const url = `${import.meta.env.VITE_BACKEND_URL}/login`;
+    const response = await fetchDataBackend(url, data, 'POST');
 
-        if (response?.token) {
-            login(response.token);
-            navigate('/dashboard');
-        } else {
-            toast.error("Credenciales inválidas o error al iniciar sesión");
-        }
-    };
+    if (response?.token) {
+  login(response.token);
+  sessionStorage.setItem("token", response.token); // 🔥 IMPORTANTE
+  navigate('/dashboard');
+
+    } else {
+        toast.error("Credenciales inválidas o error al iniciar sesión");
+    }
+};
+
 
     const openMicrosoftLogin = () => {
         window.open(
@@ -50,7 +53,7 @@ const Login = () => {
 
     return (
 
-    <div className="relative h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/public/images/epn_1.jpg')"  }}>
+    <div className="relative h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/epn_1.jpg')"  }}>
         <ToastContainer />
 
         {/* Contenedor centrado y traslúcido */}

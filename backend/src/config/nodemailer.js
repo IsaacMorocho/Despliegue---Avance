@@ -20,6 +20,22 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+const sendMailToRecoveryPasswordE = async(userMail,token)=>{
+    let info = await transporter.sendMail({
+    from:'"PoliRed" <polired@policonecta.com>',
+    to: userMail,
+    subject: "Correo para reestablecer tu contraseña",
+    html: `
+    <h1>PoliRed</h1>
+    <hr>
+    <a href=${process.env.FRONTEND_URL}/recuperar-password-e/${token}>Clic para reestablecer tu contraseña</a>
+    <hr>
+    <footer>El equipo de PoliRed te da bienvenida.</footer>
+    `
+    });
+    console.log("Mensaje enviado satisfactoriamente: ", info.messageId);
+}
+
 const sendMailToRecoveryPassword = async(userMail,token)=>{
     let info = await transporter.sendMail({
     from:'"PoliRed" <polired@policonecta.com>',
@@ -28,7 +44,7 @@ const sendMailToRecoveryPassword = async(userMail,token)=>{
     html: `
     <h1>PoliRed</h1>
     <hr>
-    <a href=${process.env.BACKEND_URL}/recuperar-password/${token}>Clic para reestablecer tu contraseña</a>
+    <a href=${process.env.FRONTEND_URL}/recuperar-password/${token}>Clic para reestablecer tu contraseña</a>
     <hr>
     <footer>El equipo de PoliRed te da bienvenida.</footer>
     `
@@ -36,8 +52,30 @@ const sendMailToRecoveryPassword = async(userMail,token)=>{
     console.log("Mensaje enviado satisfactoriamente: ", info.messageId);
 }
 
+const sendMailToRegister = async (userMail, token) => {
 
+    let mailOptions = {
+        from: '"PoliRed" <polired@policonecta.com>',
+        to: userMail,
+        subject: "PoliRed",
+        html: `<p>Hola, haz clic <a href="${process.env.FRONTEND_URL}/confirmar/${token}">aquí</a> para confirmar tu cuenta.</p>
+        <hr>
+        <footer>El equipo de PoliRed te da la más cordial bienvenida.</footer>
+        `
+    }
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("Error al enviar correo:", error);
+        return reject(error);
+      }
+      console.log("Mensaje enviado satisfactoriamente:", info.messageId);
+      resolve(info);
+    })
+}
 
 export {
-    sendMailToRecoveryPassword
+    sendMailToRecoveryPassword,
+    sendMailToRecoveryPasswordE,
+    sendMailToRegister
 }

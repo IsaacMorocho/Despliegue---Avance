@@ -3,9 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import superAdminRoutes from './routers/superAdminRoutes.js'
-import { loginRouter } from './routers/microsoft.js'
-import "./middlewares/microsoftMiddleware.js";
-import passport from 'passport'
+import estudiantesRoutes from './routers/estudiantesRoutes.js'
 
 // Inicializaciones
 const app = express()
@@ -17,18 +15,15 @@ app.use(cors())
 
 // Middlewares 
 app.use(express.json())
+
+// Gestión del super admin
 app.use('/api', superAdminRoutes)
 
-// Login con microsoft
-app.use(passport.initialize())
-app.use('/auth', loginRouter)
-
+// Rutas para estudiantes
+app.use('/api', estudiantesRoutes)
 
 // Manejo de rutas no existentens
 app.use((req, res) => {res.status(404).json({error: "Ruta no encontrada"})})
-
-// Variables globales
-
 
 // Rutas 
 app.get('/',(req,res)=>{

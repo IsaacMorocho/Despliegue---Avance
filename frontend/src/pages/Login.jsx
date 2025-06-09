@@ -59,7 +59,7 @@ const loginUser = async (data) => {
         {/* Contenedor centrado y traslúcido */}
         <div className="leading-normal absolute inset-0 flex justify-center items-center">
         <div className="bg-none bg-opacity-10 backdrop-blur-lg rounded-3xl shadow-2xl p-10 w-full max-w-120 space-y-8 ">
-        <h1 className="font-serif text-2xl text-center text-white tracking-widest">LOGIN ADMINISTRADOR</h1>
+        <h1 className="font-lato font-bold text-2xl text-center text-white tracking-widest">LOGIN ADMINISTRADOR</h1>
         <p className="text-gray-200 text-sm text-center">Por favor ingresa tus datos</p>
 
             <form onSubmit={handleSubmit(loginUser)} className="space-y-5">
@@ -123,7 +123,7 @@ const loginUser = async (data) => {
             <Link to="/forgot/id" className="text-blue-200 hover:text-white underline">Olvidé mi contraseña</Link>
         </div>
         <div className="tracking-wider flex justify-between items-center mt-2 text-sm text-gray-200">
-            <Link to="/" className="underline hover:text-white"> Regresar</Link>
+            <Link to="/" className="underline hover:text-white">Regresar</Link>
         </div>
     </div>
 </div>

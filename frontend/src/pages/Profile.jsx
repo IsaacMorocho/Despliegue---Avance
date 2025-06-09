@@ -5,7 +5,9 @@ import FormProfile from '../components/profile/FormProfile'
 const Profile = () => {
   return (
     <div>
-      <h1 className='font-black text-4xl text-gray-500'>Perfil</h1>
+      <h1 
+        style={{ fontFamily: 'Lora, serif' }}
+        className='font-black text-4xl text-gray-600'>Perfil</h1>
       <hr className='mr-80' />
       <div className='mt-4 ml-auto w-fit mr-10'>
         <CardProfile />

@@ -9,15 +9,18 @@ const CardPassword = () => {
             </div>
 
             <form >
-
                 <div>
                     <label className="mb-2 block text-sm font-semibold">Contraseña actual</label>
-                    <input type="text" placeholder="Ingresa tu contraseña actual" className="shadow-md block w-full rounded-md border border-gray-300 py-1 px-2 text-gray-500 mb-5" />
+                    <input type="text" placeholder="Ingresa tu contraseña actual" 
+                    className="shadow-md block w-full rounded-md border border-gray-300 py-1 px-2 text-gray-500 mb-5" 
+                    required/>
                 </div>
 
                 <div>
                     <label className="mb-2 block text-sm font-semibold">Nueva contraseña</label>
-                    <input type="text" placeholder="Ingresa la nueva contraseña" className="shadow-md block w-full rounded-md border border-gray-300 py-1 px-2 text-gray-500 mb-5" />
+                    <input type="text" placeholder="Ingresa la nueva contraseña" 
+                    className="shadow-md block w-full rounded-md border border-gray-300 py-1 px-2 text-gray-500 mb-5" 
+                    required/>
                 </div>
 
             <div className="text-center">

@@ -19,41 +19,49 @@ const Dashboard = () => {
   return (
     <>
       {/* Encabezado */}
-      <div className='w-full bg-gray-700 py-2 px-2 flex items-center justify-end gap-4 z-50'>
-        <img
-          src='/images/logo_admin.png'
-          alt='img-client'
-          className='absolute left-10 mt-1 rounded-full'
-          width={50}
-          height={50}
-        />
-        <div
-          style={{ fontFamily: 'Lora, serif' }}
-          className='absolute left-1/2 tracking-widest text-2xl transform -translate-x-1/2 font-semibold text-slate-100'
-        >
-          PANEL DE CONTROL
+        <div className="w-full bg-gray-700 py-3 px-4 flex flex-wrap items-center justify-between gap-4 z-50">
+          <div className="flex items-center gap-2">
+            <img
+              src="/images/logo_admin.png"
+              alt="logo"
+              className="rounded-full w-10 h-10"
+            />
+            <span
+              style={{ fontFamily: 'Lora, serif' }}
+              className="text-lg font-semibold text-slate-100 block lg:hidden"
+            >
+              PANEL DE CONTROL
+            </span>
+          </div>
+
+          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-slate-100 tracking-widest" style={{ fontFamily: 'Lora, serif' }}>
+            PANEL DE CONTROL
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap justify-end">
+            <div className="text-sm sm:text-md font-semibold text-slate-100 text-center">
+              Super Administrador -
+            </div>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4715/4715329.png"
+              alt="user"
+              className="w-10 h-10 border-2 border-green-600 rounded-full"
+            />
+            <button
+              onClick={handleLogout}
+              className="text-white text-sm sm:text-md hover:bg-red-900 bg-red-800 px-4 py-1 rounded-lg"
+            >
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
-        <div className='text-md font-semibold text-slate-100'>Super Administrador -</div>
-          <img
-            src='https://cdn-icons-png.flaticon.com/512/4715/4715329.png'
-            alt='img-client'
-            className='border-2 border-green-600 rounded-full'
-            width={50}
-            height={50}
-          />
-        <button
-          onClick={handleLogout}
-          className='text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-800 px-4 py-1 rounded-lg'
-        >
-          Cerrar Sesión
-        </button>
-      </div>
+
+
 
       {/* Layout principal */}
       <div className='md:flex md:min-h-screen'>
-        {/* Sidebar con contenido sticky */}
         <div className='md:w-1/6 bg-slate-300 px-5 py-4'>
-          <div className='sticky top-16'> {/* Se mantiene visible al hacer scroll */}
+          <div className='sticky top-16'> {/*mantener visible al hacer scroll */}
             <ul className='mt-5 py-45'>
               <li className='text-center text-2xl'>
                 <Link

@@ -1,8 +1,7 @@
 const FormularioPerfil = () => {
     return (
         <form>
-            {/* Nombre y Apellido en una fila (responsive) */}
-            <div className="flex flex-col md:flex-row md:gap-5 mb-5">
+            <div className="flex flex-col md:flex-row md:gap-5 mb-5 mt-8">
                 <div className="md:w-1/2 mb-5 md:mb-0">
                     <label className="mb-2 block text-sm font-semibold">Nombre</label>
                     <input
@@ -21,7 +20,6 @@ const FormularioPerfil = () => {
                 </div>
             </div>
 
-            {/* Celular */}
             <div className="mb-5">
                 <label className="mb-2 block text-sm font-semibold">Celular</label>
                 <input
@@ -31,7 +29,6 @@ const FormularioPerfil = () => {
                 />
             </div>
 
-            {/* Correo electrónico */}
             <div className="mb-5">
                 <label className="mb-2 block text-sm font-semibold">Correo electrónico</label>
                 <input
@@ -41,7 +38,6 @@ const FormularioPerfil = () => {
                 />
             </div>
 
-            {/* Botón */}
             <div className="text-center">
                 <button
                     type="button"

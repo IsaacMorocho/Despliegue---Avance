@@ -8,16 +8,16 @@ const Profile = () => {
       <h1 
         style={{ fontFamily: 'Lora, serif' }}
         className='font-black text-4xl text-gray-600'>Perfil</h1>
-      <hr className='mr-80' />
-      <div className='mt-4 ml-auto w-fit mr-10'>
-        <CardProfile />
-      </div>
-      <div className='flex justify-around gap-x-5 flex-wrap gap-y-8 md:flex-nowrap mt-10'>
-        <div className='md:w-1/1 mr-80 -mt-96'>
-          <FormProfile />
-          <CardPassword />
+      <hr className='mr-98' />
+        <div className="flex flex-col lg:flex-row gap-6 items-start w-full px-4">
+          <div className="w-full lg:w-2/3">
+            <FormProfile />
+            <CardPassword/>
+          </div>
+          <div className="w-full lg:w-1/3">
+            <CardProfile />
+          </div>
         </div>
-      </div>
     </div>
   )
 }

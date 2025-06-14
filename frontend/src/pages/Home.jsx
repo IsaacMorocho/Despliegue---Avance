@@ -38,7 +38,7 @@ export const Home = () => {
                 
                 <div className="relative z-50 px-6 md:text-left">
                     <h1 className="font-lato font-extrabold text-white uppercase text-3xl md:text-5xl py-13">La red social <br />para los politécnicos</h1>
-                    <p className="text-lg md:text-2xl my-1">Chats, publicaciones, apoyo académico y mucho más...</p>
+                    <p className="text-lg md:text-2xl my-1 pb-8">Chats, publicaciones, apoyo académico y mucho más...</p>
                 </div>
                 </main>
                     <p className="font-bold text-center my-15 text-xl text-gray-700">Poli Red se encuentra disponible en:</p>
@@ -92,22 +92,33 @@ export const Home = () => {
 
 
             <footer className='text-center bg-neutral-200 p-6 sm:px-20 sm:py-10 mt-5 rounded-tr-3xl rounded-tl-3xl space-y-8'>
-                <div className='flex justify-between items-center'>
-                    <div className='text-left'>
-                    <div className='text-3xl font-extrabold text-blue-900'>Envíanos tus sugerencias</div>
-                    </div>
-                    <div className='flex-1 sm:max-w-1/2'>
-                        <form action="#" className='w-full p-4'>
-                            <fieldset className='border-2 border-gray-400 p-4 rounded-sm '>
-                                <legend className='bg-gray-700 w-full text-left text-white pl-2 py-2 rounded-sm '>Sugerencias / Recomendaciones</legend>
-                                <div className='flex justify-between gap-4'>
-                                    <input type="email" placeholder="Mensaje" className='sm:flex-1 border border-gray-500 rounded-md focus:outline-none px-2' />
-                                    <button className='flex-1 sm:max-w-40 border bg-red-700 p-1 rounded-lg text-white'>Enviar</button>
-                                </div>
-                            </fieldset>
-                        </form>
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 px-4">
+                <div className="text-left w-full lg:w-auto">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-900">
+                    Envíanos tus sugerencias
                     </div>
                 </div>
+                <div className="w-full lg:flex-1">
+                    <form action="#" className="w-full p-4">
+                    <fieldset className="border-2 border-gray-400 p-4 rounded-sm">
+                        <legend className="bg-gray-700 text-white pl-2 py-2 rounded-sm text-sm sm:text-base">
+                        Sugerencias / Recomendaciones
+                        </legend>
+                        <div className="flex flex-col sm:flex-row justify-between gap-4 mt-2">
+                        <input
+                            type="email"
+                            placeholder="Mensaje"
+                            className="flex-1 border border-gray-500 rounded-md focus:outline-none px-2 py-1 text-sm"
+                        />
+                        <button className="sm:max-w-40 bg-red-700 p-2 rounded-lg text-white text-sm">
+                            Enviar
+                        </button>
+                        </div>
+                    </fieldset>
+                    </form>
+                </div>
+                </div>
+
                 <div className='flex justify-between'>
                     <ul className='flex gap-4'>
                         <li>

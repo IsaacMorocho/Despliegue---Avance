@@ -12,7 +12,7 @@ import Details from './pages/Details'
 import Create from './pages/Create'
 import Update from './pages/Update'
 import Chat from './pages/Chat'
-import Reset from './pages/Reset'
+import Reset from './pages/recuperarpassword'
 import ProtectedRoute from './layout/ProtectedRoute' 
 import PublicRoute from './layout/PublicRoute'
 
@@ -32,7 +32,7 @@ function App() {
           </PublicRoute>} />
         <Route path='forgot/:id' element={<Forgot />} />
         <Route path='confirm/:token' element={<Confirm />} />
-        <Route path='reset/:token' element={<Reset />} />
+        <Route path='recuperarpassword/:token' element={<Reset />} /> {/*Super admin */}
         <Route path='*' element={<NotFound />} />
         <Route path='/dashboard' element={
           <ProtectedRoute>
